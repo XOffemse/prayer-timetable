@@ -1,27 +1,32 @@
-const fs = require('fs');
-const path = require('path');
+const { get } = require("http");
+const { writeFileSync, readFileSync } = require("fs");
 
-exports.handler = async (event) => {
-    if (event.httpMethod !== 'POST') {
-        return { statusCode: 405, body: 'Method Not Allowed' };
-    }
-
-    const prayerTimes = JSON.parse(event.body); // Parse the received data
-    const filePath = path.join(__dirname, '../../prayerTimes.json');
-
+exports.handler = async (event, context) => {
     try {
-        // Save the new prayer times to the JSON file
-        fs.writeFileSync(filePath, JSON.stringify(prayerTimes, null, 2));
+        if (event.httpMethod === "POST") {
+            // Get data from the request body
+            const body = JSON.parse(event.body);
+
+            // Save the prayer times to a file (or a database)
+            writeFileSync("prayerTimes.json", JSON.stringify(body));
+
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ message: "Prayer times saved successfully!" }),
+            };
+        }
+
+        // If GET request, return saved prayer times
+        const savedTimes = readFileSync("prayerTimes.json", "utf8");
 
         return {
             statusCode: 200,
-            body: JSON.stringify({ message: 'Prayer times updated successfully!' }),
+            body: savedTimes,
         };
-    } catch (error) {
-        console.error('Error saving prayer times:', error);
+    } catch (err) {
         return {
             statusCode: 500,
-            body: 'Error saving prayer times',
+            body: JSON.stringify({ message: "Error saving prayer times!" }),
         };
     }
 };

@@ -1,22 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+// Function to save prayer times
+function savePrayerTimes() {
+    const prayerTimes = {};
 
-exports.handler = async () => {
-    const filePath = path.join(__dirname, '../../prayerTimes.json');
-
-    try {
-        const data = fs.readFileSync(filePath, 'utf8');
-        const prayerTimes = JSON.parse(data);
-
-        return {
-            statusCode: 200,
-            body: JSON.stringify(prayerTimes),
-        };
-    } catch (error) {
-        console.error('Error reading prayer times:', error);
-        return {
-            statusCode: 500,
-            body: 'Error reading prayer times',
-        };
-    }
-};
+    editableCells.forEach(cell => {
+        const prayerName = cell.getAttribute('data-prayer-name');
+        const newTime = cell.innerText;
+        prayerTimes[prayerName] = newTime;
+    });
+    
+    // Send the prayer times to the serverless function
+    fetch('/.netlify/functions/savePrayerTimes', {
+        method: 'POST',
+        body: JSON.stringify(prayerTimes),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message); // Show success message
+    })
+    .catch(error => {
+        alert('Error saving prayer times!');
+        console.error('Error:', error);
+    });
+}
