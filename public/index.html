@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prayer Time Table</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/suncalc/1.8.0/suncalc.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Prayer Time Table start here -->
+    <section id="prayer-time">
+        <div class="prayer-container">
+            <h2>Prayer Time</h2>
+            <table class="prayer-table">
+                <thead>
+                    <tr>
+                        <th>English</th>
+                        <th>Time</th>
+                        <th>Prayer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Fajr</td>
+                        <td class="editable-time" data-prayer-name="fajr">5:45 AM</td>
+                        <td style="text-align: right;">الفَجْر</td>
+                    </tr>
+                    <tr>
+                        <td>Dhuhr</td>
+                        <td class="editable-time" data-prayer-name="dhuhr">1:30 PM</td>
+                        <td style="text-align: right;">الظُّهْر</td>
+                    </tr>
+                    <tr>
+                        <td>Asr</td>
+                        <td class="editable-time" data-prayer-name="asr">5:00 PM</td>
+                        <td style="text-align: right;">العَصْر</td>
+                    </tr>
+                    <tr>
+                        <td>Maghrib</td>
+                        <td class="editable-time" data-prayer-name="maghrib">6:15 PM</td>
+                        <td style="text-align: right;">المَغْرِب</td>
+                    </tr>
+                    <tr>
+                        <td>Isha</td>
+                        <td class="editable-time" data-prayer-name="isha">8:00 PM</td>
+                        <td style="text-align: right;">العِشَاء</td>
+                    </tr>
+                    <tr>
+                        <td>Jummah</td>
+                        <td class="editable-time" data-prayer-name="jummah">1:20 PM</td>
+                        <td style="text-align: right;">الْجُمُعَة</td>
+                    </tr>
+                    <tr>
+                        <td>Sehri</td>
+                        <td class="editable-time" data-prayer-name="sehri">4:42 AM</td>
+                        <td style="text-align: right;">السَّحُور</td>
+                    </tr>
+                    <tr>
+                        <td>Sunrise</td>
+                        <td id="sunrise-time">Loading...</td>
+                        <td style="text-align: right;">شُروق الشَّمْس</td>
+                    </tr>
+                    <tr>
+                        <td>Sunset</td>
+                        <td id="sunset-time">Loading...</td>
+                        <td style="text-align: right;">غُروب الشَّمْس</td>
+                    </tr>
+                    <tr>
+                        <td>Lunar Date</td>
+                        <td>23</td>
+                        <td style="text-align: right;">التَّاريخ القمري</td>
+                    </tr>
+                    <tr>
+                        <td>Solar Date</td>
+                        <td>27</td>
+                        <td style="text-align: right;">التَّاريخ الشمسي</td>
+                    </tr>
+                </tbody>
+            </table>
+            <button id="save-btn">Save Changes</button>
+        </div>
+    </section>
+
+    <!-- Clock Modal -->
+    <div id="clock-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Select Prayer Time</h2>
+            <input type="time" id="time-picker" required>
+            <button id="set-time-btn">Set Time</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
